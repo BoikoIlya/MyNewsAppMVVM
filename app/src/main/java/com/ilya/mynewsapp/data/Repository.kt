@@ -7,9 +7,13 @@ import retrofit2.Response
 
 interface Repository {
 
-    suspend fun getApi(apiKey:String):Response<NewsResponse>
+    suspend fun getApi(apiKey:String = Constance.API_KEY,
+                       countryCode: String = "ru"
+    ):Response<NewsResponse>
 
-    suspend fun searchApi(apiKey:String, title: String):Response<NewsResponse>
+    suspend fun searchApi(apiKey:String = Constance.API_KEY,
+                          title: String
+    ):Response<NewsResponse>
 
     suspend fun saveOrUpdateDataBase(name: String)
 
