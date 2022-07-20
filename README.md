@@ -1,5 +1,6 @@
 # MyNewsAppMVVM
-MY first app using MVVM
+My first app using MVVM
+
 Stack:
 - Kotlin
 - XML
