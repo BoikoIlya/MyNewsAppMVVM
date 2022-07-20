@@ -8,7 +8,7 @@ interface Repository {
 
     suspend fun getApi():Response<NewsResponse>
 
-    suspend fun searchApi(name: String):Response<NewsResponse>
+    suspend fun searchApi(title: String):Response<NewsResponse>
 
     suspend fun saveOrUpdateDataBase(name: String)
 
