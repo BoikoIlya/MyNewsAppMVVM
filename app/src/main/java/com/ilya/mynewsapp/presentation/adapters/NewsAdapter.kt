@@ -1,17 +1,15 @@
 package com.ilya.mynewsapp.presentation.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ilya.mynewsapp.R
 import com.ilya.mynewsapp.databinding.NewsItemBinding
 import com.ilya.mynewsapp.model.Article
 
-class NewsAdarter: RecyclerView.Adapter<NewsAdarter.ViewHolder>() {
+class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: NewsItemBinding): RecyclerView.ViewHolder(binding.root)
 

@@ -5,11 +5,51 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ilya.mynewsapp.R
+import com.ilya.mynewsapp.databinding.FragmentBreakingNewsBinding
+import com.ilya.mynewsapp.presentation.adapters.NewsAdapter
+import com.ilya.mynewsapp.presentation.viewmodels.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
+class BreakingNewsFragment : Fragment() {
 
-class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
+    private lateinit var binding: FragmentBreakingNewsBinding
+    private lateinit var adapter: NewsAdapter
 
+    private val viewModel: MainActivityViewModel by viewModels()
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentBreakingNewsBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        listenNews()
+    }
+
+    private fun setupRecyclerView() = with(binding){
+      adapter = NewsAdapter()
+        recyclerViewBreakingNews.adapter = adapter
+        recyclerViewBreakingNews.layoutManager = LinearLayoutManager(activity)
+    }
+
+    fun listenNews()
+    {
+        viewModel.newsApi.observe(viewLifecycleOwner){ Response->
+            adapter.differ.submitList(
+                Response.articles
+            )
+        }
+    }
 
 }

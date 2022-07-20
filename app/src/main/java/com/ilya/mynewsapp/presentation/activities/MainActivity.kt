@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    val viewModel:MainActivityViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         BottomoNavigationMenu.setupWithNavController(navController)
-        viewModel.getNewsFromApi()
     }
+
+
+
 }
