@@ -13,6 +13,7 @@ import com.ilya.mynewsapp.R
 import com.ilya.mynewsapp.databinding.FragmentBreakingNewsBinding
 import com.ilya.mynewsapp.presentation.adapters.NewsAdapter
 import com.ilya.mynewsapp.presentation.viewmodels.MainActivityViewModel
+import com.ilya.mynewsapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
 import javax.inject.Inject
@@ -49,11 +50,20 @@ class BreakingNewsFragment : BaseFragment(), NewsAdapter.Listener {
 
     fun listenNews()
     {
-        viewModel.newsApi.observe(viewLifecycleOwner){ Response->
-            adapter.differ.submitList(
-                Response.articles
-            )
-          hideProgressBar(breaking_news_progress_bar)
+        viewModel.newsApi.observe(viewLifecycleOwner){ Resorce->
+            when(Resorce){
+                is Resource.Loading->showProgressBar(breaking_news_progress_bar)
+                is Resource.Success-> {
+                    hideProgressBar(breaking_news_progress_bar)
+                    adapter.differ.submitList(
+                        Resorce.data?.articles
+                    )
+                }
+                is Resource.Error->{
+                        hideProgressBar(breaking_news_progress_bar)
+                        showAlert(Resorce.message.toString())
+                }
+            }
         }
     }
 
