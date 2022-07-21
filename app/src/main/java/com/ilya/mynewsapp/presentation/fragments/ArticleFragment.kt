@@ -17,7 +17,7 @@ import com.ilya.mynewsapp.databinding.FragmentArticleBinding
 import kotlinx.android.synthetic.main.fragment_article.*
 
 
-class ArticleFragment : Fragment() {
+class ArticleFragment : BaseFragment() {
 
     lateinit var binding: FragmentArticleBinding
      private val webUrl:ArticleFragmentArgs by navArgs()

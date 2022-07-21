@@ -14,10 +14,11 @@ import com.ilya.mynewsapp.databinding.FragmentBreakingNewsBinding
 import com.ilya.mynewsapp.presentation.adapters.NewsAdapter
 import com.ilya.mynewsapp.presentation.viewmodels.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_breaking_news.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BreakingNewsFragment : Fragment(), NewsAdapter.Listener {
+class BreakingNewsFragment : BaseFragment(), NewsAdapter.Listener {
 
     private lateinit var binding: FragmentBreakingNewsBinding
     private lateinit var adapter: NewsAdapter
@@ -35,6 +36,7 @@ class BreakingNewsFragment : Fragment(), NewsAdapter.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showProgressBar(breaking_news_progress_bar)
         setupRecyclerView()
         listenNews()
     }
@@ -51,6 +53,7 @@ class BreakingNewsFragment : Fragment(), NewsAdapter.Listener {
             adapter.differ.submitList(
                 Response.articles
             )
+          hideProgressBar(breaking_news_progress_bar)
         }
     }
 
