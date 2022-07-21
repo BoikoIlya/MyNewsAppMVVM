@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ilya.mynewsapp.R
 import com.ilya.mynewsapp.databinding.FragmentBreakingNewsBinding
@@ -54,7 +55,10 @@ class BreakingNewsFragment : Fragment(), NewsAdapter.Listener {
     }
 
     override fun onClick(url: String) {
-        Toast.makeText(activity, "Success", Toast.LENGTH_LONG).show()
+       val bundle = Bundle().apply {
+           putString("webUrl", url)
+       }
+        findNavController().navigate(R.id.action_breakingNewsFragment_to_articleFragment, bundle)
     }
 
 }
