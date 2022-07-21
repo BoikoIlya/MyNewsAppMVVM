@@ -48,20 +48,20 @@ class BreakingNewsFragment : BaseFragment(), NewsAdapter.Listener {
         recyclerViewBreakingNews.layoutManager = LinearLayoutManager(activity)
     }
 
-    fun listenNews()
+    private fun listenNews()
     {
-        viewModel.newsApi.observe(viewLifecycleOwner){ Resorce->
-            when(Resorce){
+        viewModel.newsApi.observe(viewLifecycleOwner){ resource->
+            when(resource){
                 is Resource.Loading->showProgressBar(breaking_news_progress_bar)
                 is Resource.Success-> {
                     hideProgressBar(breaking_news_progress_bar)
                     adapter.differ.submitList(
-                        Resorce.data?.articles
+                        resource.data?.articles
                     )
                 }
                 is Resource.Error->{
                         hideProgressBar(breaking_news_progress_bar)
-                        showAlert(Resorce.message.toString())
+                        showAlert(resource.message.toString())
                 }
             }
         }

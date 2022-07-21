@@ -24,10 +24,12 @@ open class BaseFragment: Fragment() {
 
     fun showAlert(message: String){
         val dialog = AlertDialog.Builder(activity as AppCompatActivity)
-        dialog.setNegativeButton("Ok"){ _, id->
+        dialog.apply {
+        setMessage(message)
+        setNegativeButton("Ok"){ _, id-> }
+        create()
+        show()
         }
-            .setMessage(message)
-        dialog.create()
     }
 
 }
