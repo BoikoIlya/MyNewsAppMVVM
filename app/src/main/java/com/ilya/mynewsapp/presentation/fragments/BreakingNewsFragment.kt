@@ -1,11 +1,9 @@
 package com.ilya.mynewsapp.presentation.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +11,10 @@ import com.ilya.mynewsapp.R
 import com.ilya.mynewsapp.databinding.FragmentBreakingNewsBinding
 import com.ilya.mynewsapp.presentation.adapters.NewsAdapter
 import com.ilya.mynewsapp.presentation.viewmodels.MainActivityViewModel
+import com.ilya.mynewsapp.utils.Constance
 import com.ilya.mynewsapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class BreakingNewsFragment : BaseFragment(), NewsAdapter.Listener {
@@ -50,7 +48,7 @@ class BreakingNewsFragment : BaseFragment(), NewsAdapter.Listener {
 
     private fun listenNews()
     {
-        viewModel.newsApi.observe(viewLifecycleOwner){ resource->
+        viewModel.breakingNewsApi.observe(viewLifecycleOwner){ resource->
             when(resource){
                 is Resource.Loading->showProgressBar(breaking_news_progress_bar)
                 is Resource.Success-> {
@@ -69,7 +67,7 @@ class BreakingNewsFragment : BaseFragment(), NewsAdapter.Listener {
 
     override fun onClick(url: String) {
        val bundle = Bundle().apply {
-           putString("webUrl", url)
+           putString(Constance.BUNDLE_KEY, url)
        }
         findNavController().navigate(R.id.action_breakingNewsFragment_to_articleFragment, bundle)
     }

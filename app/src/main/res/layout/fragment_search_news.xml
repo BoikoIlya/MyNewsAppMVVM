@@ -11,6 +11,7 @@
        android:orientation="vertical">
 
    <EditText
+       android:id="@+id/searchEditText"
        android:layout_marginTop="5dp"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -19,8 +20,16 @@
        android:hint="Search..."
        android:inputType="text" />
 
+       <ProgressBar
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:id="@+id/search_news_progress_bar"
+           android:visibility="gone"
+           />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerSearchBreakingNews"
+        android:id="@+id/recyclerSearchNews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

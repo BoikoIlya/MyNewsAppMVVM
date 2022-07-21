@@ -1,9 +1,12 @@
 package com.ilya.mynewsapp.presentation.fragments
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.navArgs
 import com.ilya.mynewsapp.databinding.FragmentArticleBinding
@@ -25,11 +28,18 @@ class ArticleFragment : BaseFragment() {
     }
 
 
+    @SuppressLint("WebViewApiAvailability")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showProgressBar(article_progress_bar)
        webView.apply {
            loadUrl(arguments.webUrl)
-           webViewClient = WebViewClient()
+           webViewClient = object :WebViewClient(){
+               override fun onPageFinished(view: WebView?, url: String?) {
+                   super.onPageFinished(view, url)
+                   hideProgressBar(article_progress_bar)
+               }
+           }
        }
     }
 

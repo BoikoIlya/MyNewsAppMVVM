@@ -19,9 +19,11 @@ interface ApiInterface:Repository {
 
     @GET(Constance.DESTINATION_URL)
     override suspend fun searchApi(
+        @Query("q")
+        searchQuery: String,
         @Query("apiKey")
         apiKey:String,
-        @Query("title")
-        title: String
+        @Query("country")
+        countryCode: String
     ): Response<NewsResponse>
 }
