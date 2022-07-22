@@ -28,7 +28,6 @@ class ArticleFragment : BaseFragment() {
     }
 
 
-    @SuppressLint("WebViewApiAvailability")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showProgressBar(article_progress_bar)

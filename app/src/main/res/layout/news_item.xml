@@ -6,14 +6,26 @@
     android:paddingBottom="10dp"
     android:paddingEnd="10dp">
 
+    <ProgressBar
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/progress_bar_item"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:visibility="gone"
+        android:layout_margin="10dp"
+        />
+
     <ImageView
         android:id="@+id/img"
         android:layout_width="160dp"
         android:layout_height="90dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <TextView
