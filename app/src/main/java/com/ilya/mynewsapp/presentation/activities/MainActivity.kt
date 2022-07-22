@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ilya.mynewsapp.R
+import com.ilya.mynewsapp.data.database.NewsDataBase
 import com.ilya.mynewsapp.presentation.fragments.BreakingNewsFragment
 import com.ilya.mynewsapp.presentation.viewmodels.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         BottomoNavigationMenu.setupWithNavController(navController)
+
+        val db = NewsDataBase.invoke(this).newsDAO()
     }
 
 

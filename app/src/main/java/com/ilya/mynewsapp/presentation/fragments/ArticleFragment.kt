@@ -8,15 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.ilya.mynewsapp.R
+import com.ilya.mynewsapp.data.model.Article
 import com.ilya.mynewsapp.databinding.FragmentArticleBinding
+import com.ilya.mynewsapp.presentation.viewmodels.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_article.*
 
-
+@AndroidEntryPoint
 class ArticleFragment : BaseFragment() {
 
     lateinit var binding: FragmentArticleBinding
-     private val arguments:ArticleFragmentArgs by navArgs()
+      val args:ArticleFragmentArgs by navArgs()
+    private val viewModel:MainActivityViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,8 +38,9 @@ class ArticleFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showProgressBar(article_progress_bar)
+
        webView.apply {
-           loadUrl(arguments.webUrl)
+           loadUrl(args.article.url)
            webViewClient = object :WebViewClient(){
                override fun onPageFinished(view: WebView?, url: String?) {
                    super.onPageFinished(view, url)
@@ -40,6 +48,11 @@ class ArticleFragment : BaseFragment() {
                }
            }
        }
+
+        binding.addToSaveNews.setOnClickListener{
+            viewModel.saveToDataBase(args.article)
+            binding.addToSaveNews.setImageResource(R.drawable.add_full)
+        }
     }
 
 }

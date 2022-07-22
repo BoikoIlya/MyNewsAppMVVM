@@ -1,4 +1,4 @@
-package com.ilya.mynewsapp.model
+package com.ilya.mynewsapp.data.model
 
 data class NewsResponse(
     val articles: List<Article>,

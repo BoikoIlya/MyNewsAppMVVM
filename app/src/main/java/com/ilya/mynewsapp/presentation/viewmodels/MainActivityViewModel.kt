@@ -3,14 +3,16 @@ package com.ilya.mynewsapp.presentation.viewmodels
 import android.util.Log
 import androidx.lifecycle.*
 import com.ilya.mynewsapp.data.Repository
-import com.ilya.mynewsapp.model.Article
-import com.ilya.mynewsapp.model.NewsResponse
+import com.ilya.mynewsapp.data.model.Article
+import com.ilya.mynewsapp.data.model.NewsResponse
 import com.ilya.mynewsapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
@@ -23,16 +25,17 @@ class MainActivityViewModel @Inject constructor(
     private val _searchNewsApi = MutableLiveData<Resource<NewsResponse>>()
     val searchNewsApi:LiveData<Resource<NewsResponse>>  = _searchNewsApi
 
-    private val _newsDataBase = MutableLiveData<List<Article>>()
-    val newsDataBase = _newsDataBase
+     var newsDataBase:LiveData<List<Article>>? = null
+
 
     init {
        getCheckedNewsFromApi()
+       getNewsFromDataBase()
     }
 
     private fun getCheckedNewsFromApi(){
         _breakingNewsApi.value = Resource.Loading()
-        viewModelScope.launch {
+        viewModelScope.launch() {
             val response = try{
                 repository.getApi()
             }catch (e: IOException) {
@@ -67,4 +70,12 @@ class MainActivityViewModel @Inject constructor(
                 _searchNewsApi.value = response.body()?.let { Resource.Success(it)}
             }
     }
-}
+
+     fun getNewsFromDataBase() {
+         newsDataBase = repository.readFromDataBase()
+    }
+
+    fun saveToDataBase(article: Article) = viewModelScope.launch(Dispatchers.IO) {
+            repository.saveOrUpdateDataBase(article) }
+    }
+

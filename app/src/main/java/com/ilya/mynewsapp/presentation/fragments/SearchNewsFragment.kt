@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ilya.mynewsapp.R
+import com.ilya.mynewsapp.data.model.Article
 import com.ilya.mynewsapp.databinding.FragmentSearchNewsBinding
 import com.ilya.mynewsapp.presentation.adapters.NewsAdapter
 import com.ilya.mynewsapp.presentation.viewmodels.MainActivityViewModel
@@ -87,9 +88,9 @@ class SearchFragment : BaseFragment(), NewsAdapter.Listener {
         recyclerSearchNews.layoutManager = LinearLayoutManager(this@SearchFragment.context)
     }
 
-    override fun onClick(url: String) {
-       val bundle = Bundle()
-        bundle.putString(Constance.BUNDLE_KEY, url)
+    override fun onClick(article: Article) {
+        val bundle = Bundle()
+        bundle.putSerializable(Constance.BUNDLE_KEY, article)
         findNavController().navigate(R.id.action_searchFragment_to_articleFragment, bundle)
     }
 }

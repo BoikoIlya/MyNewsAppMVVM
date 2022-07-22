@@ -38,8 +38,7 @@
         android:label="fragment_article"
         tools:layout="@layout/fragment_article" >
         <argument
-            android:name="webUrl"
-            app:argType="string"
-            android:defaultValue="null" />
+            android:name="article"
+            app:argType="com.ilya.mynewsapp.data.model.Article" />
     </fragment>
 </navigation>

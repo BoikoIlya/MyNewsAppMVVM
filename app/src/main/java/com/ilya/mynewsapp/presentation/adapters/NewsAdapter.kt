@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +12,9 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.ilya.mynewsapp.R
 import com.ilya.mynewsapp.databinding.NewsItemBinding
-import com.ilya.mynewsapp.model.Article
+import com.ilya.mynewsapp.data.model.Article
+import com.ilya.mynewsapp.data.model.Source
 
 class NewsAdapter(val listener: Listener): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
@@ -79,13 +78,27 @@ class NewsAdapter(val listener: Listener): RecyclerView.Adapter<NewsAdapter.View
                 .into(img)
         }
         holder.itemView.setOnClickListener {
-            listener.onClick(article.url)
+            listener.onClick(mapper(article))
         }
     }
 
     override fun getItemCount(): Int = differ.currentList.size
 
     interface Listener{
-        fun onClick(url:String)
+        fun onClick(article: Article)
+    }
+
+    fun mapper(article: Article):Article{
+        return  Article(
+            id =article.id,
+            author = article.author,
+            content = article.content,
+            description = article.description,
+            publishedAt = article.publishedAt,
+            source = Source(id = article.source.id, name = article.source.name),
+            title = article.title,
+            url = article.url,
+            urlToImage = article.urlToImage
+        )
     }
 }

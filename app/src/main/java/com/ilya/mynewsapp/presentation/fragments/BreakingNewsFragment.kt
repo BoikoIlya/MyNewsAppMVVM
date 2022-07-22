@@ -8,6 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ilya.mynewsapp.R
+import com.ilya.mynewsapp.data.model.Article
+import com.ilya.mynewsapp.data.model.Source
 import com.ilya.mynewsapp.databinding.FragmentBreakingNewsBinding
 import com.ilya.mynewsapp.presentation.adapters.NewsAdapter
 import com.ilya.mynewsapp.presentation.viewmodels.MainActivityViewModel
@@ -65,10 +67,9 @@ class BreakingNewsFragment : BaseFragment(), NewsAdapter.Listener {
         }
     }
 
-    override fun onClick(url: String) {
-       val bundle = Bundle().apply {
-           putString(Constance.BUNDLE_KEY, url)
-       }
+    override fun onClick(article: Article) {
+       val bundle = Bundle()
+        bundle.putSerializable(Constance.BUNDLE_KEY, article)
         findNavController().navigate(R.id.action_breakingNewsFragment_to_articleFragment, bundle)
     }
 

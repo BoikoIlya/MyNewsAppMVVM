@@ -1,7 +1,9 @@
 package com.ilya.mynewsapp.data
 
-import com.ilya.mynewsapp.model.Article
-import com.ilya.mynewsapp.model.NewsResponse
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.ilya.mynewsapp.data.model.Article
+import com.ilya.mynewsapp.data.model.NewsResponse
 import com.ilya.mynewsapp.utils.Constance
 import retrofit2.Response
 
@@ -16,9 +18,9 @@ interface Repository {
                           countryCode: String = "us"
     ):Response<NewsResponse>
 
-    suspend fun saveOrUpdateDataBase(name: String)
+    suspend fun saveOrUpdateDataBase(article: Article)
 
-    suspend fun readFromDataBase():List<Article>
+     fun readFromDataBase(): LiveData<List<Article>>
 
-    suspend fun deleteFromDataBase(id: Int)
+    suspend fun deleteFromDataBase(article: Article)
 }
