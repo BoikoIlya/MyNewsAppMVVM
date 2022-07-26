@@ -1,9 +1,7 @@
-package com.ilya.mynewsapp.data
+package com.ilya.mynewsapp.data.repositiry
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.ilya.mynewsapp.data.database.NewsDAO
-import com.ilya.mynewsapp.data.database.NewsDataBase
 import com.ilya.mynewsapp.data.model.Article
 import com.ilya.mynewsapp.data.model.NewsResponse
 import com.ilya.mynewsapp.data.network.ApiInterface

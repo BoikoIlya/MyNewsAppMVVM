@@ -10,6 +10,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.ilya.mynewsapp.R
 import com.ilya.mynewsapp.data.model.Article
 import com.ilya.mynewsapp.databinding.FragmentArticleBinding
@@ -52,6 +53,7 @@ class ArticleFragment : BaseFragment() {
         binding.addToSaveNews.setOnClickListener{
             viewModel.saveToDataBase(args.article)
             binding.addToSaveNews.setImageResource(R.drawable.add_full)
+            Snackbar.make(view, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
         }
     }
 

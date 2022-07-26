@@ -2,7 +2,6 @@ package com.ilya.mynewsapp.data.database
 
 import android.content.Context
 import androidx.room.*
-import com.ilya.mynewsapp.data.Repository
 import com.ilya.mynewsapp.data.model.Article
 import com.ilya.mynewsapp.utils.Constance
 

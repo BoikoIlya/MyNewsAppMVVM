@@ -1,6 +1,5 @@
 package com.ilya.mynewsapp.data.network
 
-import com.ilya.mynewsapp.data.Repository
 import com.ilya.mynewsapp.data.model.NewsResponse
 import com.ilya.mynewsapp.utils.Constance
 import retrofit2.Response

@@ -1,4 +1,4 @@
-package com.ilya.mynewsapp.data
+package com.ilya.mynewsapp.data.repositiry
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

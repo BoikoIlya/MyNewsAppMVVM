@@ -2,7 +2,7 @@ package com.ilya.mynewsapp.presentation.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.ilya.mynewsapp.data.Repository
+import com.ilya.mynewsapp.data.repositiry.Repository
 import com.ilya.mynewsapp.data.model.Article
 import com.ilya.mynewsapp.data.model.NewsResponse
 import com.ilya.mynewsapp.utils.Resource
@@ -64,7 +64,7 @@ class MainActivityViewModel @Inject constructor(
                 }
                     _breakingNewsApi.value  = breakingNewsResponse?.let {Resource.Success(it)}
                 }
-            }
+            }else _breakingNewsApi.value = Resource.Error(response.message())
         }
 
     }
@@ -74,11 +74,9 @@ class MainActivityViewModel @Inject constructor(
             val response = try{
                 repository.searchApi(searchTitle)
             }catch (e: IOException) {
-                Log.d("tag", "Api: Connection failed")
                 _searchNewsApi.postValue(Resource.Error(e.message.toString()))
                 return
             }catch (e: HttpException){
-                Log.d("tag", "Api: Unexpected response")
                 _searchNewsApi.postValue(Resource.Error(e.message.toString()))
                 return
             }
@@ -92,6 +90,13 @@ class MainActivityViewModel @Inject constructor(
     }
 
     fun saveToDataBase(article: Article) = viewModelScope.launch(Dispatchers.IO) {
-            repository.saveOrUpdateDataBase(article) }
+            repository.saveOrUpdateDataBase(article)
     }
+
+    fun deleteFromDataBase(article: Article) =viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteFromDataBase(article)
+    }
+}
+
+
 
