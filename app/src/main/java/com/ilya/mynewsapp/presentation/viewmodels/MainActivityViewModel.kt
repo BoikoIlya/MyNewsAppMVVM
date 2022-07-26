@@ -41,12 +41,10 @@ class MainActivityViewModel @Inject constructor(
             val response = try{
                 repository.getApi(page = breakingNewsPage)
             }catch (e: IOException) {
-                Log.d("tag", "Api: Connection failed")
-                _breakingNewsApi.postValue(Resource.Error(e.message.toString()))
+                _breakingNewsApi.postValue(Resource.Error("Connection Failed"))
                 return@launch
             }catch (e: HttpException){
-                Log.d("tag", "Api: Unexpected response")
-                _breakingNewsApi.postValue(Resource.Error(e.message.toString()))
+                _breakingNewsApi.postValue(Resource.Error(e.message.toString()+"\nCode: "+e.code()))
                 return@launch
             }
             if (response.isSuccessful){
@@ -74,15 +72,15 @@ class MainActivityViewModel @Inject constructor(
             val response = try{
                 repository.searchApi(searchTitle)
             }catch (e: IOException) {
-                _searchNewsApi.postValue(Resource.Error(e.message.toString()))
+                _searchNewsApi.postValue(Resource.Error("Connection Failed"))
                 return
             }catch (e: HttpException){
-                _searchNewsApi.postValue(Resource.Error(e.message.toString()))
+                _searchNewsApi.postValue(Resource.Error(e.message.toString()+"\nCode: "+e.code()))
                 return
             }
             if (response.isSuccessful && response.body()!= null){
                 _searchNewsApi.value = response.body()?.let { Resource.Success(it)}
-            }
+            }else _breakingNewsApi.value = Resource.Error(response.message())
     }
 
      fun getNewsFromDataBase() {
