@@ -14,7 +14,11 @@ interface ApiInterface {
         @Query("apiKey")
         apiKey:String,
         @Query("country")
-        countryCode: String
+        countryCode: String,
+        @Query("pageSize")
+        pageSize:Int,
+        @Query("page")
+        page:Int
     ): Response<NewsResponse>
 
     @GET(Constance.DESTINATION_URL)

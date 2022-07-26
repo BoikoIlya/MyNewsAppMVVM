@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
@@ -21,6 +20,8 @@ class MainActivityViewModel @Inject constructor(
 
     private val _breakingNewsApi = MutableLiveData<Resource<NewsResponse>>()
     val breakingNewsApi:LiveData<Resource<NewsResponse>>  = _breakingNewsApi
+    var breakingNewsPage = 1
+    var breakingNewsResponse: NewsResponse? = null
 
     private val _searchNewsApi = MutableLiveData<Resource<NewsResponse>>()
     val searchNewsApi:LiveData<Resource<NewsResponse>>  = _searchNewsApi
@@ -28,16 +29,17 @@ class MainActivityViewModel @Inject constructor(
      var newsDataBase:LiveData<List<Article>>? = null
 
 
+
     init {
        getCheckedNewsFromApi()
        getNewsFromDataBase()
     }
 
-    private fun getCheckedNewsFromApi(){
+     fun getCheckedNewsFromApi(){
         _breakingNewsApi.value = Resource.Loading()
         viewModelScope.launch() {
             val response = try{
-                repository.getApi()
+                repository.getApi(page = breakingNewsPage)
             }catch (e: IOException) {
                 Log.d("tag", "Api: Connection failed")
                 _breakingNewsApi.postValue(Resource.Error(e.message.toString()))
@@ -47,10 +49,24 @@ class MainActivityViewModel @Inject constructor(
                 _breakingNewsApi.postValue(Resource.Error(e.message.toString()))
                 return@launch
             }
-            if (response.isSuccessful && response.body()!= null){
-                _breakingNewsApi.value = response.body()?.let { Resource.Success(it)}
+            if (response.isSuccessful){
+                response.body()?.let { resultResponse->
+
+                breakingNewsPage++
+                if (breakingNewsResponse==null){
+                    breakingNewsResponse = resultResponse
+                }else {
+                    val oldArticles = breakingNewsResponse
+                    val newArticles = resultResponse
+                    oldArticles?.articles?.addAll(newArticles.articles)
+                    breakingNewsResponse = oldArticles
+
+                }
+                    _breakingNewsApi.value  = breakingNewsResponse?.let {Resource.Success(it)}
+                }
             }
         }
+
     }
 
     suspend fun searchCheckedNewsFromApi(searchTitle: String){

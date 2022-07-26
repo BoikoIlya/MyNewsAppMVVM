@@ -31,8 +31,7 @@ class Modules {
 
     @Provides
     fun provideRepositoryImplementation(apiInstance:ApiInterface,
-                                        dataBaseInstance: NewsDAO
-                                                                ):Repository{
+                                        dataBaseInstance: NewsDAO):Repository{
         return RepositoryImplementation(apiInstance, dataBaseInstance)
     }
 }

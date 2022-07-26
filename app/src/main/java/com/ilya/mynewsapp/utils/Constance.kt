@@ -8,4 +8,5 @@ object Constance {
     const val DESTINATION_URL:String ="/v2/top-headlines"
     const val BUNDLE_KEY: String = "article"
     const val TABLE_NAME: String = "Articles"
+    const val QUERY_PAGE_SIZE:Int = 10
 }

@@ -10,7 +10,9 @@ import retrofit2.Response
 interface Repository {
 
     suspend fun getApi(apiKey:String = Constance.API_KEY,
-                       countryCode: String = "us"
+                       countryCode: String = "us",
+                       pageSize:Int = 10,
+                       page:Int = 1
     ):Response<NewsResponse>
 
     suspend fun searchApi(searchQuery: String,

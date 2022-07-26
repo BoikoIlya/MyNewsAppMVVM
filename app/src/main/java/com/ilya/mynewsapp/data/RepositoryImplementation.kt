@@ -15,8 +15,12 @@ class RepositoryImplementation @Inject constructor(
     val dataBaseInstance: NewsDAO
 ): Repository {
 
-    override suspend fun getApi(apiKey: String, countryCode: String): Response<NewsResponse> {
-       return apiInstance.getApi(apiKey,countryCode)
+    override suspend fun getApi(apiKey: String,
+                                countryCode: String,
+                                pageSize:Int,
+                                page:Int
+                                ): Response<NewsResponse> {
+       return apiInstance.getApi(apiKey,countryCode, pageSize, page)
     }
 
     override suspend fun searchApi(
