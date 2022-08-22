@@ -16,6 +16,7 @@ This app get list of 10 news from network, when you scroll till last item, app w
 
 ### Breaking news fragment:
 ![image](https://user-images.githubusercontent.com/100340546/185949949-98df9dc5-89a6-41a5-857d-4e2ad132c2f3.png)
+![image](https://user-images.githubusercontent.com/100340546/185951510-4e8713f9-6c04-4332-81f2-c8d52d1d3b89.png)
 
 ### Saved news fragment:
 ![image](https://user-images.githubusercontent.com/100340546/185950311-eb79d2c3-c958-41c1-a682-34691b3f530f.png)
