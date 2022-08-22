@@ -26,3 +26,6 @@ This app get list of 10 news from network, when you scroll till last item, app w
 
 ### Search news fragment:
 ![image](https://user-images.githubusercontent.com/100340546/185950728-5241a8b5-12c7-48b0-91f1-aecf61c72ac0.png)
+
+### If you will load app without internet
+![image](https://user-images.githubusercontent.com/100340546/185951155-b3d67715-9d63-4e13-8909-26954173b5af.png)
