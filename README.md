@@ -9,6 +9,7 @@ Stack:
 - Hilt
 - Navigation graph
 - Corutines
+- LiveData
 
 This app get list of 10 news from network, when you scroll till last item, app will load new 10 news. If you click on news item, app will load webview of article site. You also can save liked article in database. In adition you can find news by name.
 
